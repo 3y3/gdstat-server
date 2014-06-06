@@ -1,0 +1,31 @@
+{
+  "name": "gdstat-server",
+  "version": "0.0.1",
+  "description": "Статистика голосования членов государственной думы.",
+  "author": "3y3 Ghoti 3y3@bk.ru",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/3y3/gdstat.git"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "bin": {},
+  "dependencies": {
+    "express": "latest",
+    "async": "latest",
+    "debug": "latest"
+  },
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "mocha": "latest",
+    "chai": "latest",
+    "jshint": "latest"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    "pretest": "jshint .",
+    "test": "mocha"
+  }
+}
