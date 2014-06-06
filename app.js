@@ -5,6 +5,20 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
 
+var passport = require('passport')
+  , FacebookStrategy = require('passport-facebook').Strategy;
+
+passport.use(new FacebookStrategy({
+    clientID: '1494738994090846',
+    clientSecret: '302e56a68897850bf59a08bbe72bbff6',
+    callbackURL: "http://localhost:1337/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+  }
+));
+
+
 var app = express();
 
 app.set('views', __dirname + '/views');
@@ -19,6 +33,22 @@ app.use(session({ secret: '__QwerTy.bone;-__' }));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', routes.index);
+
+['facebook']
+.forEach(function(social) {
+  app.get(
+    '/auth/' + social,
+    passport.authenticate(social),
+    function(req, res) {}
+  );
+  app.get(
+    '/auth/' + social + '/callback', 
+    passport.authenticate(social, { failureRedirect: '/' }),
+    function(req, res) {
+      res.redirect('/account');
+    }
+  );
+});
 
 app.listen(1337);
 
